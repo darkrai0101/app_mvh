@@ -1,0 +1,55 @@
+.sider{
+	width: auto;
+	position: absolute;
+}
+.snap-drawer{
+	background: #333332;
+}
+
+.sider ul, .sider ol{
+	padding: 0;
+	list-style: none;
+	list-style-image: none;
+}
+.sider li{
+	margin-top: 10px;
+	position: relative;
+}
+.sider_list_item{
+
+}
+.sider_list_item_btn,.toc_list_item_btn{
+	color: #b3b3b1;
+	font-family: 'Source Sans Pro', sans-serif;
+	letter-spacing: -0.02em;
+	font-weight: 600;
+	font-style: normal;
+	display: block;
+	border: 0;
+	background: rgba(0,0,0,0);
+	text-align: left;
+	text-decoration: none;
+}
+.sider_list_item_btn{
+	padding: 0 16px 0 52px;
+	height: 42px;
+	line-height: 45px;
+	font-size: 16px;
+}
+.toc_list_item_btn:hover, .sider_list_item_btn:hover{
+	color: #fff;
+}
+
+.toc_list{
+
+}
+.toc_list_item{
+
+}
+
+.toc_list_item_btn{
+	padding: 0 16px 0 84px;
+	height: 24px;
+	line-height: 24px;
+	font-size: 14px;
+}

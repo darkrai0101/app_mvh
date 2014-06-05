@@ -1,0 +1,43 @@
+<div class="fixed">
+  		<span ng-class="{'box_control_disable':disableBoxControl}" class="box_control" snap-toggle="left"></span>
+  	</div>
+  	<snap-drawer>
+  		<div id="sider" class="sider">
+  			<ul class="sider_list">
+  				<li class="sider_list_item"><a class="sider_list_item_btn" href="#">Home</a></li>
+  				<li class="sider_list_item"><a class="sider_list_item_btn" href="#">Tạo mới</a></li>
+  				<li class="sider_list_item"><a class="sider_list_item_btn" href="#">Bản nháp</a></li>
+  				<li class="sider_list_item"><a class="sider_list_item_btn" href="#">Mục tiêu</a></li>
+  				<li class="sider_list_item"><a class="sider_list_item_btn" href="#">Bộ sưu tập</a></li>
+  			</ul>
+  		</div>
+  	</snap-drawer>
+  	<snap-content>
+	  	<div id="wrapper">
+	  		<div id="menu" class="top_bar">
+				<div class="top_bar_block align_left">
+					
+				</div>
+				<div class="top_bar_block align_right">
+					<button class="btn btn-delete btn-danger" title="Delete">Xóa</button>
+					<button class="btn btn-history btn-normal" title="History">Lịch sử</button>
+					<button class="btn btn-share-draft btn-normal" title="Share Draft">Chia sẻ bản nháp</button>
+					<button class="btn btn-publish btn-primary" ng-click="publishArticle()" title="Publish">Xuất bản</button>
+				</div>
+	  		</div>
+			<div id="container">
+			    <div>
+					<div>
+						<form name="write_article" id="write_article">
+							<h1 id="article_title" contenteditable="true" ng-model="title" placeholder="Tiêu đề" autofocus></h1>
+							<h2 id="article_subtitle" contenteditable="true" ng-model="subtitle" placeholder="tiêu đề phụ" /></h2>
+				      		<div id="article_content" medium-editor ng-model="content" spellcheck="false" data-placeholder="viết gì đó"></div>
+					  	</form>
+				  	</div>
+				</div>
+			</div>
+  	</div>
+  	</snap-content>
+  	<script type="text/javascript">
+  		document.getElementById('article_title').focus();
+  	</script>

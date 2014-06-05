@@ -1,0 +1,29 @@
+<div class="fixed">
+	<span ng-class="{'box_control_disable':disableBoxControl}" class="box_control" snap-toggle="left"></span>
+</div>
+<snap-drawer>
+  <div id="sider" class="sider">
+    <ul class="sider_list">
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#">Home</a></li>
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#account">Tài khoản</a></li>
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#collections">Bộ sưu tập</a></li>
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#document/pre-create">Bài viết mới</a></li>
+    </ul>
+  </div>
+</snap-drawer>
+<snap-content>
+<div id="wrapper">
+  <div id="menu" class="top_bar">
+	  <div class="top_bar_block align_left"></div>
+	  <div class="top_bar_block align_right"></div>
+	</div>
+	<div id="container">
+	<div ng-repeat="article in documents">
+		<a href="#document/{{ article._id }}">
+			<h3 id="article_title">{{ article.title }}</h3>
+	      	<p id="article_subtitle"/>{{ article.subtitle }}</p>
+		</a>
+	</div>
+	</div>
+</div>
+</snap-content>

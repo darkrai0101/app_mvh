@@ -1,0 +1,119 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic&subset=latin,vietnamese);
+h1,h2,p,a,blockquote{
+	outline: none;
+	color: #000;
+}
+
+#article_title[contenteditable=true]:empty:before {
+  content: attr(placeholder);
+}
+#article_subtitle[contenteditable=true]:empty:before {
+  content: attr(placeholder);
+}
+
+#article_title:before{
+	color: #8d8d8d;
+}
+
+#article_subtitle:before{
+	color: #b3b3b1;
+}
+
+#write_article h1,#write_article h2{
+	border: none;
+	outline: none;
+	width: 100%;
+}
+
+#article_subtitle{
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	letter-spacing: -0.04em;
+	font-size: 30px;
+	line-height: 1.1;
+	padding-top: 3px;
+	margin-bottom:12px;
+	color: gray;
+}
+#article_title{
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 600;
+	font-style: normal;
+	letter-spacing: -0.04em;
+	font-size: 50px;
+	line-height: 1.1;
+	margin-top: 31px;
+	margin-bottom:4px;
+	text-transform: uppercase;
+}
+#article_content{
+	margin-top: 30px;
+}
+
+#article_content h1{
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 600;
+	font-style: normal;
+	letter-spacing: -0.04em;
+	font-size: 50px;
+	line-height: 1.1;
+	margin-top: 31px;
+	margin-bottom:12px;
+}
+
+#article_content h2{
+	font-family: 'Source Sans Pro', sans-serif;
+	letter-spacing: -0.02em;
+	font-weight: 600;
+	font-style: normal;
+	font-size: 32px;
+	line-height: 1.2;
+	margin-top: 31px;
+	margin-bottom: 2px;
+}
+
+#article_content p{
+	font-family: serif;
+	letter-spacing: .01rem;
+	font-weight: 300;
+	font-style: normal;
+	font-size: 22px;
+	text-align: justify;
+	line-height: 1.5;
+	padding: 8px 0px;
+}
+
+#article_content a{
+	font-family: serif;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#article_content blockquote {
+	font-family: serif;
+	font-size: 22px;
+	letter-spacing: .01rem;
+	font-weight: 300;
+	font-style: italic;
+	border-left: 3px solid #57ad68;
+	padding-left: 20px;
+	margin-left: 26px;
+	padding-bottom: 4px;
+	padding-top: 4px;
+	margin-top : 6px;
+	margin-bottom: 6px;
+}
+
+.medium-editor-placeholder {
+	font-size: 22px;
+	font-family: serif;
+	line-height: 1.5;
+	padding: 8px 0px;
+}
+.medium-editor-placeholder:after{
+	font-size: 22px;
+	font-family: serif;
+	line-height: 1.5;
+	padding: 8px 0px;
+}
