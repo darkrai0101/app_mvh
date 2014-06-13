@@ -1,15 +1,22 @@
-<div>
-	<input type="text" ng-model="messageId" value="" disabled/>
-	<br />
-	<input type="text"ng-model="userRecive" value="">
-	<br />
-	<ul ng-repeat="message in messages" style="display: block;width: 200px">
-		<li>{{ message }}</li>
-	</ul>
-	<input type="text" ng-model="txt" vlaue=""/>
-	<button ng-click="send()">send</button>
+<div class="" >
+	<input type="text" ng-model="key">
+	<button ng-click="search()">Tìm</button>
+	<div class="list-friend"> 
+		<ul ng-repeat="friend in friends">
+			<li class="friend" ng-click="createChat($event, friend.friendId)"><a>{{ friend.alias }}</a></li>
+		</ul>
+	</div> 
 </div>
-
-<div>
-	<p>ltinh</p>
+<div class="">
+	<input type="hidden" ng-model="messageId" disabled/>
+	<br />
+	<input type="hidden" ng-model="userRecive">
+	<br />
+	<div class="chat-box">
+		<ul ng-repeat="message in messages" style="display: block;width: 200px">
+			<li><p><b>{{ message.user }}</b>: {{ message.message }}</p></li>
+		</ul>
+	</div>
+	<input class="input-txt" type="text" ng-model="txt" vlaue=""/>
+	<button class="btn-send" ng-click="send()">Gửi</button>
 </div>

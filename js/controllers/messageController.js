@@ -1,19 +1,33 @@
 'use strict';
 
-app.controller('messageController', function($scope, socket, $routeParams){
-  $scope.userId = $routeParams.userId;
+app.controller('messageController', function($scope, $http, socket, $routeParams, sessionService){
+  $scope.userId = sessionService.getUser()._id;
+  $scope.friends = sessionService.getFriends();
   $scope.messages = [];
+
+  $scope.createChat = function(event, id, alias){
+      console.log('cr chat');
+      $scope.userRecive = id;
+      $("li.friend").removeClass("active");
+      $(event.target).addClass('active');
+  };
+
   $scope.send = function(){
     // params = {userRecive : userRecive, message : txt, messageId : messageId};
     var params = {
       'from' : $scope.userId, 
       'to' : [$scope.userRecive],
       'message' : $scope.txt,
-      'messageId' : $scope.messageId
+      'messageId' : $scope.messageId,
+      'alias' : sessionService.getUser().alias
     };
-    console.log(params);
-    $scope.messages.push($scope.txt);
+    var message = {
+      'user' : 'Tôi',
+      'message' : $scope.txt
+    }
+    $scope.messages.push(message);
     socket.emit('send:message', params);
+    $scope.txt = '';
   };
 
   socket.on('messageId', function(data){
@@ -22,7 +36,11 @@ app.controller('messageController', function($scope, socket, $routeParams){
 
     socket.on($scope.messageId, function(data){
       console.log(data);
-      $scope.messages.push(data);
+      var message = {
+        'user' : data.alias,
+        'message' : data.message
+      }
+      $scope.messages.push(message);
     });
   });
 
@@ -31,10 +49,18 @@ app.controller('messageController', function($scope, socket, $routeParams){
 
     socket.on($scope.messageId, function(data){
       console.log(data);
-      $scope.messages.push(data);
+      var message = {
+        'user' : data.alias,
+        'message' : data.message
+      }
+      $scope.messages.push(message);
     });
 
-    $scope.messages.push(data.message);
+    var message = {
+        'user' : data.alias,
+        'message' : data.message
+      }
+      $scope.messages.push(message);
   });
 
   $scope.$on('$destroy', function (event) {

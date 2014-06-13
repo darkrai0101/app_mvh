@@ -4,19 +4,14 @@
 <snap-drawer>
   <div id="sider" class="sider">
     <ul class="sider_list">
-      <li class="sider_list_item"><a class="sider_list_item_btn" href="#">Home</li>
-      <li class="sider_list_item"><a class="sider_list_item_btn" href="#acount">Tài khoản></li>
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#">Home</a></li>
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#acount">Tài khoản</a></li>
       <li class="sider_list_item"><a class="sider_list_item_btn" href="#collections">Bộ sưu tập</a></li>
       <li class="sider_list_item"><a class="sider_list_item_btn" href="#">Bài viết mới</a></li>
-      <li class="sider_list_item">
+      <li class="sider_list_item" ng-show="table_content">
         <a class="sider_list_item_btn" href="#">Mục lục</a>
-        <ul class="toc_list">
-            <li class="toc_list_item"><a class="toc_list_item_btn" href="#chapter1">Chapter 1</a></li>
-            <li class="toc_list_item"><a class="toc_list_item_btn" href="#chapter2">Chapter 2</a></li>
-            <li class="toc_list_item"><a class="toc_list_item_btn" href="#chapter3">Chapter 3</a></li>
-            <li class="toc_list_item"><a class="toc_list_item_btn" href="#chapter4">Chapter 4</a></li>
-            <li class="toc_list_item"><a class="toc_list_item_btn" href="#chapter5">Chapter 5</a></li>
-            <li class="toc_list_item"><a class="toc_list_item_btn" href="#chapter6">Chapter 6</a></li>
+        <ul class="toc_list" ng-repeat="section in sections">
+            <li class="toc_list_item"><a class="toc_list_item_btn" href="#document/id/{{documentId}}/{{ section._id }}">{{ section.title }}</a></li>
         </ul>
       </li>
     </ul>
@@ -29,16 +24,22 @@
     
   </div>
   <div class="top_bar_block align_right">
-    <button class="btn btn-bookmark btn-normal" title="Bookmark">Đánh dấu</button>
-    <button class="btn btn-share btn-normal" title="Share">Chia sẻ</button>
-    <button class="btn btn-favorite btn-primary" title="Favorite">Yêu thích</button>
+    <button class="btn btn-action btn-bookmark btn-normal" title="Bookmark">Đánh dấu</button>
+    <button class="btn btn-action btn-share btn-normal" title="Share">Chia sẻ</button>
+    <button class="btn btn-action btn-favorite btn-primary" title="Favorite">Yêu thích</button>
   </div>
 </div>
 <div id="container">
-    <div class="post-content" ng-controller="readArticleController">
+    <div class="post-content">
       <h1 id="article_title">{{ title }}</h1>
       <h2 id="article_subtitle"/>{{ subtitle }}</h2>
+      <h3 ng-show="s_title">{{ s_title }}</h3>
+      <h3 ng-show="s_subtitle">{{ s_subtitle }}</h3>
       <div spellcheck="false" id="article_content" ng-bind-html="articleContent"></div>
+    </div>
+
+    <div class="note-cotent">
+        
     </div>
 </div>
 </div>

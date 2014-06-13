@@ -1,0 +1,19 @@
+<input type="text" ng-model="key">
+<button ng-click="search()">Tìm</button>
+<div ng-if="friends != null  && friends[0] != null">
+	<ul ng-repeat="friend in friends">
+		<li class="friend-item">
+			{{ friend.alias }}
+			<a class="btn btn-friend" ng-click="add(friend.friendId, 2)" ng-if="friend.status == 99">Kết bạn</a>
+			<a class="btn btn-friend" ng-click="add(friend.friendId, 3)" ng-if="friend.status == 99">Theo dõi</a>
+			<a class="status" ng-if="friend.status == 0">Đang chờ</a>
+			<a class="btn btn-friend" ng-click="accept(friend.friendId)" ng-if="friend.status == 1">Chấp nhận</a>
+			<a class="status" ng-if="friend.status == 2">Bạn bè</a>
+			<a class="status" ng-if="friend.status == 3">Đang theo dõi</a>
+			<a class="btn btn-friend" ng-click="delete(friend.friendId)" ng-if="friend.status != 99">Hủy</a>
+		</li>
+	</ul>
+</div>
+<div ng-if="friends == null">
+	<p>Bạn chưa có bạn bè nào</p>
+</div>

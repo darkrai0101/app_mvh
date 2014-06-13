@@ -4,20 +4,28 @@
 		<div class="overlay-content">Tạo bài viết</div>
 		<div class="overlay-actions ">
 			<div class="element-set-vertical">
-				<div class="element"><input type="text" name="title_document" id="title_document" ng-model="title_document" placeholder="TITLE" /></div>
+				<div class="element"><input type="text" name="title_document" id="title_document" ng-model="title_document" class="input_title" placeholder="Tiêu đề bài viết" /></div>
+				<div class="element"><input type="text" name="subtitle_document" id="subtitle_document" ng-model="subtitle_document" class="input_subtitle" placeholder="Tiêu đề phụ" /></div>
 				<div class="element">
-					<select name="categories" id="categories">
-						<option value="1">Truyện ngắn</option>
-						<option value="2">Truyện dài</option>
+					<label for="categories">Thể loại: </label>
+					<select class="select-category" ng-model="category_document" name="category_document" id="categories">
+						<option value="">Chọn một thể loại</option>
+						<option ng-selected="category._id == category_document" ng-repeat="category in categories" value="{{category._id}}">
+					      {{category.name}}
+					    </option>
+						<!-- <option value="2">Truyện dài</option>
 						<option value="3">Tiểu thuyết</option>
-						<option value="4">Tâm sự</option>
+						<option value="4">Tâm sự</option> -->
 					</select>
 				</div>
 				<div class="element last-element">
-					<a href="#documents" class="btn btn-step btn-back">Quay lại</a>
-					<a href="#document/create" class="btn btn-step btn-next">Tiếp tục</a>
+					<button ng-click="back()" class="btn btn-step btn-back">Quay lại</button>
+					<button ng-click="next()" class="btn btn-step btn-next">Tiếp tục</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+  		document.getElementById('title_document').focus();
+</script>

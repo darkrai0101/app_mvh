@@ -35,7 +35,7 @@ directive('contenteditable', function () {
 
 
 var app = angular.module('mvh'
-  ,['ngRoute','ngCookies','btford.socket-io','snap','ngSanitize','configContenteditable','angular-medium-editor']
+  ,['ngRoute','ngCookies','btford.socket-io','snap','configContenteditable','angular-medium-editor','ui.bootstrap.datetimepicker']
   ,function($httpProvider){
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
     $httpProvider.defaults.transformRequest = function(data){
@@ -66,7 +66,7 @@ app.config(function($routeProvider){
     templateUrl: 'views/register.html',
     controller: 'registerController'
   })
-  .when('/message/:userId', {
+  .when('/message', {
     templateUrl: 'views/message.html',
     controller: 'messageController'
   })
@@ -78,7 +78,7 @@ app.config(function($routeProvider){
     templateUrl: 'views/document.html',
     controller: 'documentController'
   })
-  .when('/document/:id/section/:section', {
+  .when('/document/id/:id/:section', {
     templateUrl : 'views/document.html',
     controller: 'sectionController'
   })
@@ -91,32 +91,43 @@ app.config(function($routeProvider){
     controller : 'createDocumentController'
   })
   .when('/publish-document', {
-    templateUrl : 'views/publis-document.html',
+    templateUrl : 'views/publish-document.html',
     controller : 'publishDocumentController'
   })
   .when('/my-document', {
-    templateUrl : 'views/my-document',
-    controller: 'myDocumentController'
+    templateUrl : 'views/my-document.html',
+    controller : 'myDocumentController'
   })
   .when('/collection', {
     templateUrl : 'views/collection.html',
     controller : 'collectionController'
   })
+  .when('/friend', {
+    templateUrl : '/views/friend.html',
+    controller : 'friendController'
+  })
+  .when('/privacy', {
+    templateUrl : 'views/privacy.html'
+  })
 	.otherwise({
-        redirectTo: '/'
+        redirectTo: '/documents'
     })
 })
 .constant('Strings', {
   CONNECTION_ERROR: ['Hệ thống đang bận, hoặc kết nối internet của bạn có vấn đề.','Xin hãy kiểm tra và thử lại sau ít phút.']
 })
-.run(function($rootScope, $templateCache, loginService) {
+.run(function($rootScope, $templateCache, loginService, $location) {
   $templateCache.removeAll();
+  console.log(loginService.isLogin());
+  // if(!loginService.isLogin()){
+  //   $location.path('/login');
+  // }
   $rootScope.logout = function(){
     loginService.logout();
   }
 });
 
-app.controller('mainController', function($rootScope, $scope, socket, snapRemote){
+app.controller('mainController', function($rootScope, $scope, $location, socket, snapRemote){
   snapRemote.getSnapper().then(function(snapper){
     snapper.on('open',function(){
       $rootScope.disableBoxControl = true;
@@ -136,6 +147,8 @@ app.controller('mainController', function($rootScope, $scope, socket, snapRemote
   socket.on('connected', function(data){
     $scope.connect = data;
   });
+
+  $location.path('/documents');
   // $scope.$on('$destroy', function (event) {
   //   socket.removeAllListeners();
   //   // or something like

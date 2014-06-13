@@ -5,14 +5,16 @@
 		<div class="overlay-actions ">
 			<div class="element-set-vertical">
 				<div class="element">
-					<label for="alias">Bút danh</label>
-					<input type="text" name="alias" ng-model="alias" value=""/>
+					<input type="text" id="alias" class="input_title" name="alias" ng-model="alias" value="" placeholder="Bút danh của bạn"/>
 				</div>
 				<div class="element last-element">
-					<a href="#" class="btn btn-step btn-back">Quay lại</a>
-					<a href="#documents" class="btn btn-step btn-next">Tiếp tục</a>
+					<a href="#login" class="btn btn-step btn-back">Quay lại</a>
+					<button ng-click="next()" class="btn btn-step btn-next">Tiếp tục</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+  		document.getElementById('alias').focus();
+</script>

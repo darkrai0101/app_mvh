@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic&subset=latin,vietnamese);
+/*@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic&subset=latin,vietnamese);*/
 h1,h2,p,a,blockquote{
 	outline: none;
 	color: #000;
@@ -41,7 +41,7 @@ h1,h2,p,a,blockquote{
 	font-weight: 600;
 	font-style: normal;
 	letter-spacing: -0.04em;
-	font-size: 50px;
+	font-size: 38px;
 	line-height: 1.1;
 	margin-top: 31px;
 	margin-bottom:4px;

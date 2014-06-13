@@ -2,7 +2,6 @@
 app.factory('loginService', function($http, $location, sessionService){
 	return {
 		login: function(){
-			
 			FB.login(function(response) {
 		        if (response.authResponse) {
 		            console.log('Welcome!  Fetching your information.... ');
@@ -18,11 +17,18 @@ app.factory('loginService', function($http, $location, sessionService){
 		                  'email' : user_email
 		                };
 		                $http.post('http://localhost:9000/authenticate', data).success(function(res){
+		                	console.log(res);
 		                	var token = res.token;
 		                	if(token){
-		                		sessionService.set('token',token);
+		                		sessionService.setToken(token);
+		                		sessionService.setUser(res.user);
+		                		sessionService.setFriends(res.friends);
 		                		console.log('login');
-		                		$location.path('/documents');
+		                		if(res.isFirst == 1){
+		                			$location.path('/register');
+		                		}else{
+		                			$location.path('/documents');
+		                		}
 		                	}else{
 		                		console.log('fail login');
 		                	}
@@ -38,11 +44,11 @@ app.factory('loginService', function($http, $location, sessionService){
 			
 		},
 		logout:function(){
-			sessionService.destroy('token');
+			sessionService.destroy();
 			FB.logout();			
 		},
 		isLogin:function(){
-			if(sessionService.get('token')) return true;
+			if(sessionService.getToken()) return true;
 			else return false;
 		}
 	};

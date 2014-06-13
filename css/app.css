@@ -119,35 +119,88 @@ div{
 	padding: 0 16px;
 }
 
-.btn-step{
-	height: 20px;
-	line-height: 19px;
-	padding: 0 8px;
-}
-
-.btn-back, .btn-back:hover{
-	background-color: rgb(255, 74, 74);
-	border: 0;
-	color: #fff;
-}
-
-.btn-next, .btn-next:hover{
-	background-color: rgb(74, 255, 125);
-	border: 0;
-	color: #fff;	
-}
-
-label{
-	color: #A8A8A8;
-	padding-right: 20px;
-	font-size: 20px;
-}
-
-input{
+.btn-action{
 	height: 38px;
-	padding:0px 16px;
-	border: 1px solid #e3e3e3;
-	-webkit-border-radius: 999em;
-	-moz-border-radius: 999em;
-	border-radius: 999em;
+	line-height: 37px;
+	padding: 0 16px;
+	background: transparent;
+}
+
+.btn-step{
+	height: 38px;
+	line-height: 37px;
+	padding: 0 8px;
+	color: #777;
+	width: 100px;
+	margin: 20px 20px;
+	border: 1px solid #777;
+	background-color: transparent;
+}
+
+.btn-back{
+	border: 1px solid rgb(224, 135, 135);
+}
+
+.btn-next{
+	border: 1px solid rgb(107, 201, 133);
+}
+
+.input_title{
+	border: none;
+	height: 40px;
+	font-size: 36px;
+	text-align: center;
+	text-transform: uppercase;
+	outline: none;
+	max-width: 400px;
+}
+
+.input_subtitle{
+	border: none;
+	height: 28px;
+	font-size: 24px;
+	text-align: center;
+	outline: none;
+	max-width: 400px;
+}
+
+.select-category{
+	height: 30px;
+	padding: 0px 8px;
+}
+
+.chat-box{
+	width: 300px;
+	height: 300px;
+	border: 1px solid #dcdcdc;
+}
+.input-txt{
+	height: 28px;
+	width: 240px;
+}
+.btn-send{
+	width: 54px;
+	height: 30px;
+	border: none;
+}
+
+.friend-item{
+	padding: 12px 10px;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+.friend-item a{
+	margin: 0px 10px;
+}
+.friend-item .status {
+	color: #DDD;
+}
+.btn-friend {
+	width: 80px;
+	padding: 4px;
+	margin-top: -5px !important;
+}
+.list-friend .active{
+	background: #DDD;
+	display: block;
 }
