@@ -1,6 +1,7 @@
 'use strict';
 
-app.controller('messageController', function($scope, $http, socket, $routeParams, sessionService){
+app.controller('messageController', function($rootScope, $location, $scope, $http, socket, $routeParams, sessionService){
+  if(!$rootScope.user) $location.path('/documents');
   $scope.userId = sessionService.getUser()._id;
   $scope.friends = sessionService.getFriends();
   $scope.messages = [];

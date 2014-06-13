@@ -6,7 +6,7 @@ app.controller('registerController', function($scope, $location, $http, sessionS
     var data = sessionService.getUser();
     data.alias = $scope.alias;
     sessionService.setUser(data);
-    $http.post('http://localhost:9000/update-account', data)
+    $http.post('http://dev.app.topica.vn:9000/update-account', data)
     .success(function(respon) {
       console.log('success', respon);
       $location.path('/documents');

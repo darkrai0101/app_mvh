@@ -2,7 +2,7 @@
 
 app.controller('collectionController', function($scope, $http, sessionService){
 	var userId = sessionService.getUser()._id;
-	$http.get('http://localhost:9000/collection/'+userId)
+	$http.get('http://dev.app.topica.vn:9000/collection/'+userId)
 	.success(function(data){
 		console.log(data);
 	});

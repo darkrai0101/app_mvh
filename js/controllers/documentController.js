@@ -1,8 +1,8 @@
 'use strict';
 
-app.controller('documentsController', function($scope, $http){
+app.controller('documentsController', function($rootScope,$location, $scope, $http){
 	$scope.documents = '';
-	$http.get('http://localhost:9000/documents')
+	$http.get('http://dev.app.topica.vn:9000/documents')
 	.success(function(data) {
       console.log('success', data);
       $scope.documents = data;
@@ -18,7 +18,7 @@ app.controller('documentController', function($scope, $http, $routeParams, $sce,
 	$scope.articleContent = '';
 	$scope.documentId = $routeParams.id;
 
-	$http.get('http://localhost:9000/document/'+$routeParams.id)
+	$http.get('http://dev.app.topica.vn:9000/document/'+$routeParams.id)
 	.success(function(data){
 		console.log(data);
 		  var obj_document = data.document;
@@ -86,7 +86,7 @@ app.controller('sectionController', function($scope, $http, $routeParams, $sce, 
 	$scope.articleContent = '';
 	$scope.documentId = $routeParams.id;
 	
-	$http.get('http://localhost:9000/section/'+$routeParams.section)
+	$http.get('http://dev.app.topica.vn:9000/section/'+$routeParams.section)
 	.success(function(obj_sections){
 		console.log(obj_sections);
 	    $scope.s_title = obj_sections[0].title;
@@ -107,9 +107,10 @@ app.controller('sectionController', function($scope, $http, $routeParams, $sce, 
 	});
 });
 
-app.controller('preCreateDocumentController', function($scope, $http, $location, documentService, sessionService, sectionService){
+app.controller('preCreateDocumentController', function($rootScope, $scope, $http, $location, documentService, sessionService, sectionService){
 	//get thong tin categories
-	$http.get('http://localhost:9000/list-category')
+	if(!$rootScope.user) $location.path('/documents');
+	$http.get('http://dev.app.topica.vn:9000/list-category')
 	.success(function(data){
 		$scope.categories = data;
 	})
@@ -126,7 +127,7 @@ app.controller('preCreateDocumentController', function($scope, $http, $location,
 			'writer' : sessionService.getUser()._id
 		};
 
-		$http.post('http://localhost:9000/document/pre-create', data)
+		$http.post('http://dev.app.topica.vn:9000/document/pre-create', data)
 		.success(function(data_respon){
 			documentService.setId(data_respon._id);
 			documentService.setTitle(data.title);  
@@ -147,7 +148,8 @@ app.controller('preCreateDocumentController', function($scope, $http, $location,
 	}
 });
 
-app.controller('createDocumentController', function($scope, $http, $location, documentService, sectionService){
+app.controller('createDocumentController', function($rootScope, $scope, $http, $location, documentService, sectionService){
+	if(!$rootScope.user) $location.path('/documents');
 	//tao section moi
 	var category = documentService.getCategory();
 	console.log(category.type);
@@ -194,7 +196,7 @@ app.controller('createDocumentController', function($scope, $http, $location, do
 			}
 		}
 
-		$http.post('http://localhost:9000/save-section', data)
+		$http.post('http://dev.app.topica.vn:9000/save-section', data)
 		.success(function(data_respon){
 			console.log(data_respon);
 			sectionService.setId(data_respon._id);
@@ -212,7 +214,7 @@ app.controller('createDocumentController', function($scope, $http, $location, do
 					'_id' :  sectionService.getId(),
 					'content' : paragraph
 				};
-				$http.post('http://localhost:9000/save-paragraph', data)
+				$http.post('http://dev.app.topica.vn:9000/save-paragraph', data)
 				.success(function(data){
 					console.log(data);
 				});
@@ -234,7 +236,7 @@ app.controller('createDocumentController', function($scope, $http, $location, do
 						}]
 					}
 				}
-				$http.post('http://localhost:9000/create-section', data)
+				$http.post('http://dev.app.topica.vn:9000/create-section', data)
 				.success(function(data){
 					console.log(data);
 					sectionService.setId(data._id);
@@ -250,16 +252,18 @@ app.controller('createDocumentController', function($scope, $http, $location, do
 
 });
 
-app.controller('publishDocumentController', function($scope, $http, documentService){
+app.controller('publishDocumentController', function($rootScope,$location, $scope, $http, documentService){
+	if(!$rootScope.user) $location.path('/documents');
 	// thoi gian
 	// gia
 	
 });
 
-app.controller('myDocumentController', function($scope, $http, sessionService){
+app.controller('myDocumentController', function($rootScope,$location, $scope, $http, sessionService){
+	if(!$rootScope.user) $location.path('/documents');
 	console.log('my document');
 	var userId = sessionService.getUser()._id;
-	$http.get('http://localhost:9000/my-document/'+userId)
+	$http.get('http://dev.app.topica.vn:9000/my-document/'+userId)
 	.success(function(data){
 		console.log(data);
 	});

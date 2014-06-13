@@ -16,7 +16,7 @@ app.factory('loginService', function($http, $location, sessionService){
 		                  'access_token' : access_token,
 		                  'email' : user_email
 		                };
-		                $http.post('http://localhost:9000/authenticate', data).success(function(res){
+		                $http.post('http://dev.app.topica.vn:9000/authenticate', data).success(function(res){
 		                	console.log(res);
 		                	var token = res.token;
 		                	if(token){

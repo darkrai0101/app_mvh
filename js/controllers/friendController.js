@@ -1,12 +1,13 @@
 'use strict';
 
-app.controller('friendController', function($scope, $http, sessionService){
+app.controller('friendController', function($rootScope,$location, $scope, $http, sessionService){
+	if(!$rootScope.user) $location.path('/documents');
     $scope.friends = sessionService.getFriends();
     console.log($scope.friends);
 	$scope.search = function(){
 		console.log($scope.key);
 		var userId = sessionService.getUser()._id;
-		$http.get('http://localhost:9000/friend/'+userId+'/s/'+$scope.key)
+		$http.get('http://dev.app.topica.vn:9000/friend/'+userId+'/s/'+$scope.key)
 		.success(function(data_respon){
 			// console.log(data_respon);
 			var list_friends = sessionService.getFriends();
@@ -35,7 +36,7 @@ app.controller('friendController', function($scope, $http, sessionService){
 
 	$scope.add = function(id, type){
 		var userId = sessionService.getUser()._id;
-		$http.get('http://localhost:9000/friend/'+userId+'/add/'+id+'/'+type)
+		$http.get('http://dev.app.topica.vn:9000/friend/'+userId+'/add/'+id+'/'+type)
 		.success(function(data_respon){
 			var list_friends = sessionService.getFriends();
 			var friend = {};
@@ -58,7 +59,7 @@ app.controller('friendController', function($scope, $http, sessionService){
 
 	$scope.delete = function(id){
 		var userId = sessionService.getUser()._id;
-		$http.get('http://localhost:9000/friend/'+userId+'/delete/'+id)
+		$http.get('http://dev.app.topica.vn:9000/friend/'+userId+'/delete/'+id)
 		.success(function(data_respon){
 			var list_friends = sessionService.getFriends();
 			for(var i in list_friends){
@@ -75,7 +76,7 @@ app.controller('friendController', function($scope, $http, sessionService){
 
 	$scope.accept = function(id){
 		var userId = sessionService.getUser()._id;
-		$http.get('http://localhost:9000/friend/'+userId+'/accept/'+id)
+		$http.get('http://dev.app.topica.vn:9000/friend/'+userId+'/accept/'+id)
 		.success(function(data_respon){
 			var list_friends = sessionService.getFriends();
 			for(var i in list_friends){
@@ -90,7 +91,7 @@ app.controller('friendController', function($scope, $http, sessionService){
 
 	$scope.change = function(id, type){
 		var userId = sessionService.getUser()._id;
-		$http.get('http://localhost:9000/friend/'+userId+'/change/'+id)
+		$http.get('http://dev.app.topica.vn:9000/friend/'+userId+'/change/'+id)
 		.success(function(data_respon){
 			
 		});
