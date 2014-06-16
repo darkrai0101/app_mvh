@@ -54,7 +54,7 @@ a{
 
 .btn-primary:hover{background:rgba(0,0,0,0);border-color:#57ad68;color:#468c54}
 
-#container {
+.container {
 	max-width: 800px;
 	margin: 0px auto;
 }

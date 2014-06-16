@@ -204,3 +204,53 @@ div{
 	background: #DDD;
 	display: block;
 }
+.notes-marker{
+	position: absolute;
+}
+
+#note-count{
+	display: block;
+	position: absolute;
+	width: 26px;
+	height: 30px;
+	background: #ccc;
+	text-align: center;
+	line-height: 30px;
+	margin-top: 15px;
+	cursor: pointer;
+}
+
+#note-content{
+	border-top: 1px solid #DDD;
+	margin-left: 26px;
+	margin-top: 15px;
+	display: block;
+	overflow: hidden;
+	position: absolute;
+	width: 0px;
+	height: 300px;
+	-webkit-overflow-scrolling: touch;
+    -webkit-transition: width 0.3s ease;
+     -moz-transition: width 0.3s ease;
+      -ms-transition: width 0.3s ease;
+       -o-transition: width 0.3s ease;
+          transition: width 0.3s ease;
+}
+
+#note-content.active{
+	width: 225px;
+}
+.trans-left{
+	-ms-transform: translate(-200px,0px); /* IE 9 */
+   	-webkit-transform: translate(-200px,0px); /* Chrome, Safari, Opera */
+    transform: translate(-200px,0px);
+}
+
+#main-article{
+	position: relative;
+	-webkit-transition: all 0.3s ease;
+     -moz-transition: all 0.3s ease;
+      -ms-transition: all 0.3s ease;
+       -o-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+}

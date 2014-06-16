@@ -1,15 +1,12 @@
-<div class="fixed">
-  <span ng-class="{'box_control_disable':disableBoxControl}" class="box_control" snap-toggle="left"></span>
-</div>
 <snap-drawer>
   <div id="sider" class="sider">
     <ul class="sider_list">
       <li class="sider_list_item"><a class="sider_list_item_btn" href="#documents">Home</a></li>
-      <li ng-if="user" class="sider_list_item"><a class="sider_list_item_btn" href="#acount">Tài khoản</a></li>
+      <li ng-if="user" class="sider_list_item"><a class="sider_list_item_btn" href="#account">Tài khoản</a></li>
       <li ng-if="!user" class="sider_list_item"><a class="sider_list_item_btn" href="#login">Đăng nhập</a></li>
       <li class="sider_list_item"><a class="sider_list_item_btn" href="#friend">Bạn bè</a></li>
       <li class="sider_list_item"><a class="sider_list_item_btn" href="#message">Tin nhắn</a></li>
-      <li class="sider_list_item"><a class="sider_list_item_btn" href="#collections">Bộ sưu tập</a></li>
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#collection">Bộ sưu tập</a></li>
       <li class="sider_list_item"><a class="sider_list_item_btn" href="#document/pre-create">Bài viết mới</a></li>
       <li class="sider_list_item" ng-show="table_content">
         <a class="sider_list_item_btn" href="#">Mục lục</a>
@@ -22,6 +19,10 @@
 </snap-drawer>
 <snap-content>
 <div id="wrapper">
+  <div class="fixed">
+  <!-- <span ng-class="{'box_control_disable':disableBoxControl}" class="box_control" snap-toggle="left"></span> -->
+  <span class="box_control" snap-toggle="left"></span>
+</div>
   <div id="menu" class="top_bar">
   <div class="top_bar_block align_left">
     
@@ -32,18 +33,42 @@
     <button class="btn btn-action btn-favorite btn-primary" title="Favorite">Yêu thích</button>
   </div>
 </div>
-<div id="container">
+<div class="container">
     <div class="post-content">
       <h1 id="article_title">{{ title }}</h1>
       <h2 id="article_subtitle"/>{{ subtitle }}</h2>
       <h3 ng-show="s_title">{{ s_title }}</h3>
       <h3 ng-show="s_subtitle">{{ s_subtitle }}</h3>
-      <div spellcheck="false" id="article_content" ng-bind-html="articleContent"></div>
-    </div>
-
-    <div class="note-cotent">
-        
-    </div>
+      <!-- <div spellcheck="false" id="article_content" ng-bind-html="articleContent"></div> -->
+      <div id="main-article">
+          <article-content id="article_content" content="articleContent"></article-content>
+          <div class="notes-marker">
+            <span id="note-count" ng-click="openComment()">+</span>
+          </div>
+          <div id="note-content">
+                <div class="notes-item" ng-repeat="comment in  comments">
+                    <div class="notes-note">
+                      {{comment.alias}}
+                      {{ comment.content }}
+                    </div>
+                </div>
+                <div class="notes-new-note">
+                  <a class="btn notes-add">Để lại ý kiến của bạn</a>
+                  <div class="notes-edit notes-edit-mode">
+                    <div class="notes-avatar"></div>
+                    <div class="notes-author"></div>
+                    <div class="notes-editor">
+                      <p contenteditable="true" placeholder="Bình luận của bạn" ng-model="comment_new" autofocus></p>
+                    </div>
+                    <div class="notes-foot">
+                      <a class="notes-save" ng-click="saveCmt()">Lưu lại</a>
+                      <a class="notes-cancel" ng-click="cancelCmt()">Thoát</a>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>      
+      </div>
 </div>
 </div>
 </snap-content>

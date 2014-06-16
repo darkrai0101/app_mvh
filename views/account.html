@@ -1,0 +1,99 @@
+<snap-drawer>
+  <div id="sider" class="sider">
+    <ul class="sider_list">
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#documents">Home</a></li>
+      <li ng-if="user" class="sider_list_item"><a class="sider_list_item_btn" href="#account">Tài khoản</a></li>
+      <li ng-if="!user" class="sider_list_item"><a class="sider_list_item_btn" href="#login">Đăng nhập</a></li>
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#friend">Bạn bè</a></li>
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#message">Tin nhắn</a></li>
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#collection">Bộ sưu tập</a></li>
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#document/pre-create">Bài viết mới</a></li>
+    </ul>
+  </div>
+</snap-drawer>
+<snap-content>
+<div id="wrapper">
+  <div class="fixed">
+    <!-- <span ng-class="{'box_control_disable':disableBoxControl}" class="box_control" snap-toggle="left"></span> -->
+    <span class="box_control" snap-toggle="left"></span>
+  </div>
+  
+	<div class="container">
+  
+    <form class="form-horizontal">
+  <fieldset>
+
+  <!-- Form Name -->
+  <legend>Thông tin tài khoản</legend>
+
+  <!-- File Button --> 
+  <div class="control-group">
+    <label class="control-label" for="avatar">Ảnh đại diện</label>
+    <div class="controls">
+      <input id="avatar" name="avatar" class="input-file" type="file">
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="control-group">
+    <label class="control-label" for="alias">Bút danh</label>
+    <div class="controls">
+      <input ng-model="alias" id="alias" name="alias" type="text" placeholder="" class="input-xlarge" required="">
+      
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="control-group">
+    <label class="control-label" for="firstname">Tên</label>
+    <div class="controls">
+      <input ng-model="firstname" id="firstname" name="firstname" type="text" placeholder="" class="input-xlarge">
+      
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="control-group">
+    <label class="control-label" for="lastname">Họ, đệm</label>
+    <div class="controls">
+      <input ng-model="lastname" id="lastname" name="lastname" type="text" placeholder="" class="input-xlarge">
+      
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="control-group">
+    <label class="control-label" for="email">Email</label>
+    <div class="controls">
+      <input ng-model="email" id="email" name="email" type="text" placeholder="" class="input-xlarge" required="">
+      
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="control-group">
+    <label class="control-label" for="phone">Số điện thoại</label>
+    <div class="controls">
+      <input ng-model="phone" id="phone" name="phone" type="text" placeholder="" class="input-xlarge">
+      
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="control-group">
+    <label class="control-label" for="address">Địa chỉ</label>
+    <div class="controls">
+      <input ng-model="address" id="address" name="address" type="text" placeholder="" class="input-xlarge" required="">
+      
+    </div>
+  </div>
+  </fieldset>
+
+  <div class="element last-element">
+        <button ng-click="back()" class="btn btn-step btn-back">Quay lại</button>
+        <button ng-click="update()" class="btn btn-step btn-next">Cập nhật</button>
+      </div>
+  </form>
+	</div>
+</div>
+</snap-content>

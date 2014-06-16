@@ -1,1 +1,25 @@
-<p>collection</p>
+<snap-drawer>
+  <div id="sider" class="sider">
+    <ul class="sider_list">
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#documents">Home</a></li>
+      <li ng-if="user" class="sider_list_item"><a class="sider_list_item_btn" href="#account">Tài khoản</a></li>
+      <li ng-if="!user" class="sider_list_item"><a class="sider_list_item_btn" href="#login">Đăng nhập</a></li>
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#friend">Bạn bè</a></li>
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#message">Tin nhắn</a></li>
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#collection">Bộ sưu tập</a></li>
+      <li class="sider_list_item"><a class="sider_list_item_btn" href="#document/pre-create">Bài viết mới</a></li>
+    </ul>
+  </div>
+</snap-drawer>
+<snap-content>
+<div id="wrapper">
+  <div class="fixed">
+    <!-- <span ng-class="{'box_control_disable':disableBoxControl}" class="box_control" snap-toggle="left"></span> -->
+    <span class="box_control" snap-toggle="left"></span>
+  </div>
+  
+	<div class="container">
+  <p>collections</p>
+	</div>
+</div>
+</snap-content>

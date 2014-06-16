@@ -1,6 +1,8 @@
 'use strict';
 
-app.controller('documentsController', function($rootScope,$location, $scope, $http){
+app.controller('documentsController', function($rootScope,$location, $scope, $http,sessionService){
+	$rootScope.user = sessionService.getUser();
+
 	$scope.documents = '';
 	$http.get('http://dev.app.topica.vn:9000/documents')
 	.success(function(data) {
@@ -12,19 +14,23 @@ app.controller('documentsController', function($rootScope,$location, $scope, $ht
     });
 });
 
-app.controller('documentController', function($scope, $http, $routeParams, $sce, readService){
+app.controller('documentController', function($rootScope,$scope, $http, $routeParams, $sce,$compile, readService, sessionService){
+	$rootScope.user = sessionService.getUser();
+
 	$scope.title = '';
 	$scope.subtitle = '';
 	$scope.articleContent = '';
 	$scope.documentId = $routeParams.id;
+	$scope.comments = [];
 
 	$http.get('http://dev.app.topica.vn:9000/document/'+$routeParams.id)
 	.success(function(data){
-		console.log(data);
+		// console.log(data);
 		  var obj_document = data.document;
 		  var obj_sections = data.sections;
 		  var obj_category = data.category;
-
+		  var paragraphs = data.paragraphs;
+		  readService.setParagraphs(paragraphs);
 		  if(obj_category.type != 0){
 			  $scope.sections = obj_sections;
 			  readService.setTableOfContent(obj_sections);
@@ -39,17 +45,19 @@ app.controller('documentController', function($scope, $http, $routeParams, $sce,
 	      readService.setSubtitle(obj_document.subtitle);
 
 	      var content = '';
-	      if(obj_sections[0]){
-		      var paragraphs = obj_sections[0].paragraphs
+	      if(obj_sections){
 		      for(var i in paragraphs){
 		      	console.log(paragraphs[i]);
 		      	var paragraph = paragraphs[i].content;
-		      	var html = $(paragraph).attr('name', paragraphs[i]._id);
+		      	var html = $(paragraph).attr('id', paragraphs[i]._id);
+		      	html.attr('name', i);
+		      	html.attr('ng-mouseover', 'phover($event)');
 		      	content += html[0].outerHTML;
 		      }
 		  }
-	      // $scope.articleContent = content;
-	      $scope.articleContent = $sce.trustAsHtml(content);
+	      $scope.articleContent = content;
+	      // $compile($(content).contents())($scope);
+	      // $scope.articleContent = $sce.trustAsHtml(content);
 	      if(obj_category.type != 0){
 	      	$scope.s_title = obj_sections[0].title;
 	      	$scope.s_subtitle = obj_sections[0].subtitle;
@@ -60,15 +68,18 @@ app.controller('documentController', function($scope, $http, $routeParams, $sce,
 	      		if($routeParams.section == obj_sections[j]._id){
 	      			$scope.s_title = obj_sections[j].title;
 	      			$scope.s_subtitle = obj_sections[j].subtitle;
-	      			var paragraphs = obj_sections[j].paragraphs
+	      			
 				      for(var i in paragraphs){
-				      	console.log(paragraphs[i]);
+				      	// console.log(paragraphs[i]);
 				      	var paragraph = paragraphs[i].content;
-				      	var html = $(paragraph).attr('name', paragraphs[i]._id);
+				      	var html = $(paragraph).attr('id', paragraphs[i]._id);
+				      	html.attr('name', i);
+		      			html.attr('ng-mouseover', 'phover($event)');
 				      	content += html[0].outerHTML;
 				      }
-
-				      $scope.articleContent = $sce.trustAsHtml(content);
+				      $scope.articleContent = content;
+				      // $compile($(content).contents())($scope);
+				      // $scope.articleContent = $sce.trustAsHtml(content);
 	      		}
 	      	}
 	      }
@@ -76,9 +87,86 @@ app.controller('documentController', function($scope, $http, $routeParams, $sce,
 	.error(function(err) {
 	      console.log('error', err);
 	});
+
+	$scope.phover = function(event){
+		var pId = $(event.target).attr('id');
+		var pos = $(event.target).position();
+		var width = $(event.target).width();
+		var name = $(event.target).attr('name');
+	
+		$('#note-count').attr('name', pId);
+		if(readService.getParagraphs()[name].numComment != 0) 
+			$('#note-count').html(readService.getParagraphs()[name].numComment);
+		else
+			$('#note-count').html('+');
+
+		$('.notes-marker').css('display', 'block');
+		$('.notes-marker').css('top', pos.top);
+		$('.notes-marker').css('left', pos.left + width + 10);
+	}
+
+	$scope.openComment = function(){
+		var pos = $('.notes-marker').position();
+		var pId = $('#note-count').attr('name');
+
+		var getComment = function(pId){
+			$('#note-content').attr('name', pId);
+			$('#note-content').css('top', pos.top);
+			$('#note-content').css('left', pos.left);
+
+			$http.get('http://dev.app.topica.vn:9000/comment/get/'+pId)
+			.success(function(data){
+				console.log(data);
+				$scope.comments = data;
+			});
+		};
+
+		if($('#note-content').hasClass('active')){
+			var note_content_pos = $('#note-content').position();
+			if(note_content_pos.top == pos.top){
+				console.log('tat');
+				$('#note-content').toggleClass('active');
+				$('#main-article').toggleClass('trans-left');
+			}else{
+				console.log('chuyen');
+				getComment(pId);
+			}
+		}else{
+			console.log('mo');
+			getComment(pId);
+			$('#note-content').toggleClass('active');
+			$('#main-article').toggleClass('trans-left');
+		}
+	}
+
+	$scope.saveCmt = function(){
+		var options = {
+			'userId' : sessionService.getUser()._id,
+			'parentId' : $('#note-content').attr('name'),
+			'content' : $scope.comment_new,
+			'status' : 1
+		}
+		$http.post('http://dev.app.topica.vn:9000/comment/new', options)
+		.success(function(data){
+			console.log(data);
+			var comment = {
+				'_id' : data,
+				'alias' : sessionService.getUser().alias,
+				'avatar' : sessionService.getUser().avatar,
+				'content' : $scope.comment_new,
+			}
+			$scope.comments.push(comment);
+			$scope.comment_new = '';
+		});
+	}
+
+	$scope.cancelCmt = function(){
+		$('#note-content').toggleClass('active');
+		$('#main-article').toggleClass('trans-left');
+	}
 });
 
-app.controller('sectionController', function($scope, $http, $routeParams, $sce, readService){
+app.controller('sectionController', function($rootScope, $scope, $http, $routeParams, $sce, readService){
 	$scope.title = readService.getTitle();
 	$scope.subtitle = readService.getSubtitle();
 	$scope.sections = readService.getTableOfContent();
@@ -87,28 +175,50 @@ app.controller('sectionController', function($scope, $http, $routeParams, $sce, 
 	$scope.documentId = $routeParams.id;
 	
 	$http.get('http://dev.app.topica.vn:9000/section/'+$routeParams.section)
-	.success(function(obj_sections){
-		console.log(obj_sections);
-	    $scope.s_title = obj_sections[0].title;
-		$scope.s_subtitle = obj_sections[0].subtitle;
-		var paragraphs = obj_sections[0].paragraphs;
+	.success(function(data){
+	    $scope.s_title = data.title;
+		$scope.s_subtitle = data.subtitle;
+		var paragraphs = data.paragraphs;
+		readService.setParagraphs(paragraphs);
+
 		var content = '';
       	for(var i in paragraphs){
-	      	console.log(paragraphs[i]);
 	      	var paragraph = paragraphs[i].content;
-	      	var html = $(paragraph).attr('name', paragraphs[i]._id);
+	      	var html = $(paragraph).attr('id', paragraphs[i]._id);
+	      	html.attr('name', i);
+  			html.attr('ng-mouseover', 'phover($event)');
 	      	content += html[0].outerHTML;
 	    }
 
-	    $scope.articleContent = $sce.trustAsHtml(content);
+	    $scope.articleContent = content;
 	})
 	.error(function(err) {
 	      console.log('error', err);
 	});
+
+	$scope.phover = function(event){
+		console.log($(event.target).attr('id'));
+		var pos = $(event.target).position();
+		var width = $(event.target).width();
+		var name = $(event.target).attr('name');
+
+		if(readService.getParagraphs()[name].numComment != 0) 
+			$('#note-count').html(readService.getParagraphs()[name].numComment);
+
+		$('.notes-marker').css('display', 'block');
+		$('.notes-marker').css('top', pos.top);
+		$('.notes-marker').css('left', pos.left + width + 10);
+	};
+
+	$scope.openComment = function(){
+		$('#note-content').toggleClass('active');
+		$('#main-article').toggleClass('trans-left');
+	}
 });
 
 app.controller('preCreateDocumentController', function($rootScope, $scope, $http, $location, documentService, sessionService, sectionService){
 	//get thong tin categories
+	$rootScope.user = sessionService.getUser();
 	if(!$rootScope.user) $location.path('/documents');
 	$http.get('http://dev.app.topica.vn:9000/list-category')
 	.success(function(data){
@@ -116,6 +226,7 @@ app.controller('preCreateDocumentController', function($rootScope, $scope, $http
 	})
 
 	$scope.next = function(){
+		console.log('next');
 		//clear lai sesion document
 		documentService.destroy();
 		sectionService.destroy();
@@ -149,6 +260,7 @@ app.controller('preCreateDocumentController', function($rootScope, $scope, $http
 });
 
 app.controller('createDocumentController', function($rootScope, $scope, $http, $location, documentService, sectionService){
+	$rootScope.user = sessionService.getUser();
 	if(!$rootScope.user) $location.path('/documents');
 	//tao section moi
 	var category = documentService.getCategory();
@@ -252,14 +364,32 @@ app.controller('createDocumentController', function($rootScope, $scope, $http, $
 
 });
 
-app.controller('publishDocumentController', function($rootScope,$location, $scope, $http, documentService){
+app.controller('publishDocumentController', function($rootScope,$location, $scope, $http, documentService, sessionService){
+	$rootScope.user = sessionService.getUser();
 	if(!$rootScope.user) $location.path('/documents');
-	// thoi gian
-	// gia
+	
+	var category_type = documentService.getCategory().type;
+	if(category_type == 0){
+
+	}else{
+
+	}
+
+	$scope.back = function(){
+		$location.path('/create-document');
+	};
+
+	$scope.next = function(){
+		$http.post('http://dev.app.topica.vn:9000/publish-document', options)
+		.success(function(data){
+			console.log(data);
+		})
+	};
 	
 });
 
 app.controller('myDocumentController', function($rootScope,$location, $scope, $http, sessionService){
+	$rootScope.user = sessionService.getUser();
 	if(!$rootScope.user) $location.path('/documents');
 	console.log('my document');
 	var userId = sessionService.getUser()._id;

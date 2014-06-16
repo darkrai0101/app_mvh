@@ -14,10 +14,17 @@
     <link rel="stylesheet" type="text/css" href="lib/medium-editor/css/medium-editor.css">
     <link rel="stylesheet" type="text/css" href="lib/medium-editor/css/themes/default.css">
     <link rel="stylesheet" type="text/css" href="css/lib/datetimepicker.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <!-- socket.io -->
     <script type="text/javascript" src="http://dev.app.topica.vn:9000/socket.io/socket.io.js"></script>
     <!-- lib -->
+
+
+    <!-- Latest compiled and minified JavaScript -->
     <script type="text/javascript" src="lib/jquery-1.11.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="lib/angular.min.js"></script>
     <script type="text/javascript" src="lib/angular-touch.min.js"></script>
     <script type="text/javascript" src="lib/angular-cookies.min.js"></script>
@@ -33,6 +40,7 @@
 	<script type="text/javascript" src="js/app.js"></script>
     <!-- app directive -->
     <script type="text/javascript" src="js/directives/keyUpDirective.js"></script>
+    <script type="text/javascript" src="js/directives/articleContentDirective.js"></script>
     <!-- app service -->
     <script type="text/javascript" src="js/services/socketService.js"></script>
     <script type="text/javascript" src="js/services/sessionService.js"></script>
@@ -47,27 +55,28 @@
     <script type="text/javascript" src="js/controllers/registerController.js"></script>
     <script type="text/javascript" src="js/controllers/collectionController.js"></script>
     <script type="text/javascript" src="js/controllers/friendController.js"></script>
+    <script type="text/javascript" src="js/controllers/accountController.js"></script>
 </head>
 <body ng-controller="mainController">
 <div id="fb-root"></div>
 <div ng-view id="view"></div>
 
-<script>
-window.fbAsyncInit = function() {
-    FB.init({
-        appId   : '1424702867767076',
-        oauth   : true,
-        status  : true, // check login status
-        cookie  : true, // enable cookies to allow the server to access the session
-        xfbml   : true // parse XFBML
-    });
-  };
-(function() {
-    var e = document.createElement('script');
-    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-    e.async = true;
-    document.getElementById('fb-root').appendChild(e);
-}());
-</script>
+// <script>
+// window.fbAsyncInit = function() {
+//     FB.init({
+//         appId   : '1424702867767076',
+//         oauth   : true,
+//         status  : true, // check login status
+//         cookie  : true, // enable cookies to allow the server to access the session
+//         xfbml   : true // parse XFBML
+//     });
+//   };
+// (function() {
+//     var e = document.createElement('script');
+//     e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+//     e.async = true;
+//     document.getElementById('fb-root').appendChild(e);
+// }());
+// </script>
 </body>
 </html>

@@ -27,6 +27,12 @@ app.factory('readService', function(){
 		getTableOfContent :  function(){
 			return angular.fromJson(sessionStorage.r_tableofcontent);
 		},
+		setParagraphs : function(data){
+			sessionStorage.r_paragraphs = angular.toJson(data);	
+		},
+		getParagraphs : function(){
+			return angular.fromJson(sessionStorage.r_paragraphs);
+		},
 		destroy: function(){
 			sessionStorage.removeItem('r_id');
 			sessionStorage.removeItem('r_title');
