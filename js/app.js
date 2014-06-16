@@ -110,6 +110,10 @@ app.config(function($routeProvider){
     templateUrl : '/views/account.html',
     controller : 'accountController'
   })
+  .when('/register-form', {
+    templateUrl : '/views/register-form.html',
+    controller : 'registerFormController'
+  })
   .when('/privacy', {
     templateUrl : 'views/privacy.html'
   })

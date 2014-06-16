@@ -16,3 +16,20 @@ app.controller('registerController', function($scope, $location, $http, sessionS
     });
   }
 });
+
+app.controller('registerFormController', function($scope, $location, $http){
+  $scope.reg = function(){
+      var options = {
+      'username' : $scope.username,
+      'password' : $scope.password,
+      'email' : $scope.email,
+      'alias' : $scope.alias
+    };
+
+    $http.post('http://dev.app.topica.vn:9000/register-form', options)
+    .success(function(data){
+      console.log(data);
+      $location.path('/login');
+    });
+  }
+})

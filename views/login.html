@@ -4,6 +4,11 @@
 		<div class="overlay-content">Đăng nhập vào Mạng Văn Học hoặc tạo tài khoản mới</div>
 		<div class="overlay-actions ">
 			<div class="element-set-vertical">
+				<input type="text" ng-model="username">
+				<input type="password" ng-model="password">
+				<a ng-click="login()">Đăng nhập</a>
+			</div>
+			<div class="element-set-vertical">
 				<div class="element"><button class="btn btn-login btn-twitter">Đăng nhập với Twitter</button></div>
 				<div class="element"><button ng-click="fbLogin()" class="btn btn-login btn-facebook">Đăng nhập với Facebook</button></div>
 			</div>

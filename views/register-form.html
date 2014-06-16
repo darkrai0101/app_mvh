@@ -1,0 +1,59 @@
+<div class="container">
+	<form class="form-horizontal">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Đăng kí tài khoản mới</legend>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="username">Tên đăng nhập</label>
+  <div class="controls">
+    <input ng-model="username" id="username" name="username" type="text" placeholder="" class="input-xlarge" required="">
+    
+  </div>
+</div>
+
+<!-- Password input-->
+<div class="control-group">
+  <label class="control-label" for="password">Mật khẩu</label>
+  <div class="controls">
+    <input ng-model="password" id="password" name="password" type="password" placeholder="" class="input-xlarge" required="">
+    
+  </div>
+</div>
+
+<!-- Password input-->
+<div class="control-group">
+  <label class="control-label" for="re-passwrod">Xác nhận lại mật khẩu</label>
+  <div class="controls">
+    <input ng-model="rePassword" id="re-passwrod" name="re-passwrod" type="password" placeholder="" class="input-xlarge" required="">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="email">Email</label>
+  <div class="controls">
+    <input ng-model="email" id="email" name="email" type="text" placeholder="" class="input-xlarge" required="">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="alias">Bút danh</label>
+  <div class="controls">
+    <input ng-model="alias" id="alias" name="alias" type="text" placeholder="" class="input-xlarge" required="">
+    
+  </div>
+</div>
+
+</fieldset>
+<div class="element last-element">
+        <button ng-click="back()" class="btn btn-step btn-back">Điền lại</button>
+        <button ng-click="reg()" class="btn btn-step btn-next">Đăng kí</button>
+  </div>
+</form>
+</div>
