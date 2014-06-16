@@ -259,7 +259,7 @@ app.controller('preCreateDocumentController', function($rootScope, $scope, $http
 	}
 });
 
-app.controller('createDocumentController', function($rootScope, $scope, $http, $location, documentService, sectionService){
+app.controller('createDocumentController', function($rootScope, $scope, $http, $location, documentService, sectionService, sessionService){
 	$rootScope.user = sessionService.getUser();
 	if(!$rootScope.user) $location.path('/documents');
 	//tao section moi
