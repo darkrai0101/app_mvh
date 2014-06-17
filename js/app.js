@@ -49,7 +49,7 @@ var app = angular.module('mvh'
 app.config(function(snapRemoteProvider) {
   snapRemoteProvider.globalOptions = {
         disable: 'right',
-        // touchToDrag: true
+        touchToDrag: false
       }
 });
 
@@ -62,6 +62,10 @@ app.config(function($routeProvider){
 		templateUrl: 'views/login.html',
 		controller: 'loginController'
 	})
+  .when('/logout', {
+    templateUrl : '/views/logout.html',
+    controller : 'logoutController'
+  })
   .when('/register', {
     templateUrl: 'views/register.html',
     controller: 'registerController'
@@ -97,6 +101,10 @@ app.config(function($routeProvider){
   .when('/my-document', {
     templateUrl : 'views/my-document.html',
     controller : 'myDocumentController'
+  })
+  .when('/editor/:id', {
+    templateUrl : 'views/editor.html',
+    controller : 'EditorController'
   })
   .when('/collection', {
     templateUrl : 'views/collection.html',

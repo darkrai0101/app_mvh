@@ -1,4 +1,113 @@
 'use strict';
+app.controller('myDocumentController', function($rootScope,$location, $scope, $http, sessionService){
+	$rootScope.user = sessionService.getUser();
+	if(!$rootScope.user) $location.path('/documents');
+	console.log('my document');
+	var userId = sessionService.getUser()._id;
+	$http.get('http://dev.app.topica.vn:9000/my-document/'+userId)
+	.success(function(data){
+		console.log(data);
+		$scope.documents = data;
+	});
+
+	$scope.edit = function(documentId){
+		console.log('edit: ', documentId);
+		$location.path('/editor/'+documentId);
+	}
+
+	$scope.delete = function(documentId){
+		console.log('delete: ', documentId);
+		var temp_documents = $scope.documents;
+		for(var i = 0; i < temp_documents.length; i++){
+			if(temp_documents[i]._id == documentId){
+				$scope.documents.splice(i, 1);
+			}
+		};
+
+		$http.get('http://dev.app.topica.vn:9000/document/delete/'+documentId)
+		.success(function(data){
+			console.log(data);
+		});
+	}
+});
+
+app.controller('EditorController', function($rootScope, $scope, $routeParams, $http, $location, documentService, sessionService, sectionService){
+	var documentId = $routeParams.id;
+	console.log('editor', documentId);
+
+	$http.get('http://dev.app.topica.vn:9000/document/'+documentId)
+	.success(function(data){
+		var obj_document = data.document;
+		var obj_sections = data.sections;
+		var obj_category = data.category;
+		var paragraphs = data.paragraphs;
+
+		if(obj_category.type != 0){
+			$scope.sections = obj_sections;
+			$scope.table_content  = true;
+		}else{
+		  	$scope.table_content = false;
+		}
+
+		$scope.title = obj_document.title;
+		$scope.subtitle = obj_document.subtitle;
+
+		var content = '';
+	    if(obj_sections){
+		    for(var i in paragraphs){
+		      	console.log(paragraphs[i]);
+		      	var paragraph = paragraphs[i].content;
+		      	var html = $(paragraph).attr('id', paragraphs[i]._id);
+		      	html.attr('name', i);
+		      	html.attr('ng-mouseover', 'phover($event)');
+		      	content += html[0].outerHTML;
+		    }
+		}
+	    $scope.content = content;
+	});
+
+	//luu paragraph
+	$scope.saveParagraph = function(keyCode){     
+		if(keyCode === 13) {
+			var length = $($scope.content).length;
+			var paragraph = $($scope.content)[length - 1].outerHTML;
+			var data = {};
+			if(sectionService.getId()){
+				data = {
+					'_id' :  sectionService.getId(),
+					'content' : paragraph
+				};
+				$http.post('http://dev.app.topica.vn:9000/save-paragraph', data)
+				.success(function(data){
+					console.log(data);
+				});
+			}else{
+				if(category.type == 0){
+					data = {
+						'documentId' : documentService.getId(),
+						'paragraphs' : [{
+							'content' : paragraph
+						}]
+					} 
+				}else{
+					data = {
+						'documentId' : documentService.getId(),
+						'title' : $scope.title,
+						'subtitle' : $scope.subtitle,
+						'paragraphs' : [{
+							'content' : paragraph
+						}]
+					}
+				}
+				$http.post('http://dev.app.topica.vn:9000/create-section', data)
+				.success(function(data){
+					console.log(data);
+					sectionService.setId(data._id);
+				});
+			}
+		}
+	}
+});
 
 app.controller('documentsController', function($rootScope,$location, $scope, $http,sessionService){
 	$rootScope.user = sessionService.getUser();
@@ -386,15 +495,4 @@ app.controller('publishDocumentController', function($rootScope,$location, $scop
 		})
 	};
 	
-});
-
-app.controller('myDocumentController', function($rootScope,$location, $scope, $http, sessionService){
-	$rootScope.user = sessionService.getUser();
-	if(!$rootScope.user) $location.path('/documents');
-	console.log('my document');
-	var userId = sessionService.getUser()._id;
-	$http.get('http://dev.app.topica.vn:9000/my-document/'+userId)
-	.success(function(data){
-		console.log(data);
-	});
 });

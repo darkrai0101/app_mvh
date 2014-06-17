@@ -17,13 +17,16 @@ app.controller('registerController', function($scope, $location, $http, sessionS
   }
 });
 
-app.controller('registerFormController', function($scope, $location, $http){
+app.controller('registerFormController', function($rootScope, $scope, $location, $http, sessionService){
+  $rootScope.user = sessionService.getUser();
+  
   $scope.reg = function(){
       var options = {
       'username' : $scope.username,
       'password' : $scope.password,
       'email' : $scope.email,
-      'alias' : $scope.alias
+      'alias' : $scope.alias,
+      'type' : 3
     };
 
     $http.post('http://dev.app.topica.vn:9000/register-form', options)

@@ -5,8 +5,8 @@ app.controller('accountController', function($rootScope, $scope, $http, $locatio
 
 	$scope.avatar = $rootScope.user.avatar;
 	$scope.alias = $rootScope.user.alias;
-	$scope.firstname = $rootScope.user.name.firstname;
-	$scope.lastname = $rootScope.user.name.lastname;
+	$scope.firstname = $rootScope.user.name ? $rootScope.user.name.firstname : ''; 
+	$scope.lastname = $rootScope.user.name ? $rootScope.user.name.lastname : '';
 	$scope.email = $rootScope.user.email;
 	$scope.address = $rootScope.user.address;
 	$scope.phone = $rootScope.user.phone;
@@ -28,6 +28,7 @@ app.controller('accountController', function($rootScope, $scope, $http, $locatio
 		$http.post('http://dev.app.topica.vn:9000/update-account', options)
 		.success(function(data){
 			console.log(data);
+			sessionService.setUser(data);
 		});
 	}
 

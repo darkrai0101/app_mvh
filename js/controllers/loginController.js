@@ -29,3 +29,9 @@ app.controller('loginController',function($scope, $http, $location, loginService
 		});
 	}
 });
+
+app.controller('logoutController', function($scope, $http, $location, loginService, sessionService){
+	console.log('logout');
+	loginService.logout();
+	$location.path('/documents');
+});
