@@ -222,13 +222,13 @@ div{
 
 #note-content{
 	border-top: 1px solid #DDD;
-	margin-left: 26px;
+	margin-left: 35px;
 	margin-top: 15px;
 	display: block;
 	overflow: hidden;
 	position: absolute;
 	width: 0px;
-	height: 300px;
+	height: auto;
 	-webkit-overflow-scrolling: touch;
     -webkit-transition: width 0.3s ease;
      -moz-transition: width 0.3s ease;
@@ -253,4 +253,49 @@ div{
       -ms-transition: all 0.3s ease;
        -o-transition: all 0.3s ease;
           transition: all 0.3s ease;
+}
+
+.notes-note{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid rgba(0,0,0,0.05);
+	cursor: pointer;
+	position: relative;
+	padding-left: 42px;
+}
+
+.notes-inner{
+
+}
+
+.notes-avatar{
+	position: absolute;
+	left: 0;
+}
+
+.notes-avatar img{
+	width: 32px;
+	height: 32px;
+}
+
+.notes-author{
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.notes-content{
+	outline: 0;
+	word-wrap: break-word;
+	font-size: 12px;
+}
+
+div.notes-foot {
+padding-left: 20px;
+}
+
+div.notes-foot a{
+	padding-right: 5px;
 }

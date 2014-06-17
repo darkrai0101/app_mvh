@@ -49,8 +49,12 @@
           <div id="note-content">
                 <div class="notes-item" ng-repeat="comment in  comments">
                     <div class="notes-note">
-                      {{comment.alias}}
-                      {{ comment.content }}
+                      <div class="notes-inner">
+                        <div ng-if="comment.avatar" class="notes-avatar"><img src="{{ comment.avatar }}"></div>
+                        <div ng-if="!comment.avatar" class="notes-avatar"><img src="/img/no_avatar.gif"></div>
+                        <div class="notes-author">{{ comment.alias }}</div>
+                        <div class="notes-content">{{ comment.content }}</div>
+                      </div>
                     </div>
                 </div>
                 <div class="notes-new-note">
