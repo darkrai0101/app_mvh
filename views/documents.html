@@ -26,8 +26,16 @@
 	<div class="container">
 	<div ng-repeat="article in documents">
 		<a href="#document/id/{{ article._id }}">
-			<h3 id="article_title">{{ article.title }}</h3>
-	      	<p id="article_subtitle"/>{{ article.subtitle }}</p>
+			<h3 class="article_title">{{ article.title }}</h3>
+	    <p class="article_subtitle"/>{{ article.subtitle }}</p>
+      <p>{{ article.description }}</p>
+      <div class="article_foot">
+        <span class="article_author">
+          <!-- <img ng-if="article.avatar" src="{{ article.avatar }}" />
+          <img ng-if="!article.avatar" src="/img/no_avatar.gif" />
+          <p>{{ article.author }}</p> -->
+        </span>
+      </div>
 		</a>
 	</div>
 	</div>

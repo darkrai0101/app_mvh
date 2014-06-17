@@ -82,7 +82,7 @@ div{
 	position: relative;
 	border: 0;
 	outline: 0;
-	font-size: 14px;
+	font-size: 11px;
 	text-align: center;
 	text-decoration: none;
 	cursor: pointer;
@@ -217,6 +217,7 @@ div{
 	text-align: center;
 	line-height: 30px;
 	margin-top: 15px;
+	margin-left: -5px;
 	cursor: pointer;
 }
 

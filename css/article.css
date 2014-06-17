@@ -4,18 +4,18 @@ h1,h2,p,a,blockquote{
 	color: #000;
 }
 
-#article_title[contenteditable=true]:empty:before {
+.article_title[contenteditable=true]:empty:before {
   content: attr(placeholder);
 }
-#article_subtitle[contenteditable=true]:empty:before {
+.article_subtitle[contenteditable=true]:empty:before {
   content: attr(placeholder);
 }
 
-#article_title:before{
+.article_title:before{
 	color: #8d8d8d;
 }
 
-#article_subtitle:before{
+.article_subtitle:before{
 	color: #b3b3b1;
 }
 
@@ -25,7 +25,7 @@ h1,h2,p,a,blockquote{
 	width: 100%;
 }
 
-#article_subtitle{
+.article_subtitle{
 	font-family: 'Source Sans Pro', sans-serif;
 	font-weight: 400;
 	font-style: normal;
@@ -36,16 +36,16 @@ h1,h2,p,a,blockquote{
 	margin-bottom:12px;
 	color: gray;
 }
-#article_title{
+.article_title{
 	font-family: 'Source Sans Pro', sans-serif;
 	font-weight: 600;
 	font-style: normal;
 	letter-spacing: -0.04em;
-	font-size: 38px;
+	font-size: 32px;
 	line-height: 1.1;
 	margin-top: 31px;
 	margin-bottom:4px;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 }
 #article_content{
 	margin-top: 30px;
@@ -56,7 +56,7 @@ h1,h2,p,a,blockquote{
 	font-weight: 600;
 	font-style: normal;
 	letter-spacing: -0.04em;
-	font-size: 50px;
+	font-size: 36px;
 	line-height: 1.1;
 	margin-top: 31px;
 	margin-bottom:12px;
@@ -67,7 +67,7 @@ h1,h2,p,a,blockquote{
 	letter-spacing: -0.02em;
 	font-weight: 600;
 	font-style: normal;
-	font-size: 32px;
+	font-size: 26px;
 	line-height: 1.2;
 	margin-top: 31px;
 	margin-bottom: 2px;
@@ -78,7 +78,7 @@ h1,h2,p,a,blockquote{
 	letter-spacing: .01rem;
 	font-weight: 300;
 	font-style: normal;
-	font-size: 22px;
+	font-size: 16px;
 	text-align: justify;
 	line-height: 1.5;
 	padding: 8px 0px;
